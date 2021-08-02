@@ -11,6 +11,7 @@ export type AtomArticleStateTransition = typeof ATOM_TRANSITIONS[number]
 export interface AtomArticleState {
   articleId: string
   title?: string
+  summary?: string
 }
 
 export interface FullAtomArticleState extends AtomArticleState {
@@ -49,11 +50,9 @@ export const dispatchEvent = (
 export class AtomArticle extends LitElement {
   static styles = css`
     :host {
-      border: 1px solid hotpink;
-    }
-    :host(article) {
-      padding: 20px;
       font-family: 'Open Sans', sans-serif;
+      border: 1px solid hotpink;
+      display: block;
     }
     :host(.is-empty) {
       background-color: hotpink;
@@ -69,6 +68,9 @@ export class AtomArticle extends LitElement {
   @property({ state: true, type: String })
   protected articleTitle: string = ''
 
+  @property({ state: true, type: String })
+  protected articleSummary: string = ''
+
   constructor() {
     super()
     this.addEventListener(
@@ -76,12 +78,16 @@ export class AtomArticle extends LitElement {
       (event: CustomEvent<FullAtomArticleState>) => {
         const {
           title = '',
+          summary = '',
           transition = 'update',
           articleId = '',
         } = event.detail
         if (this.articleId === articleId) {
           if (title !== '' && title !== this.articleTitle) {
             this.articleTitle = title
+          }
+          if (summary !== '' && summary !== this.articleSummary) {
+            this.articleSummary = summary
           }
           this.transitionState =
             transition === 'update' ? 'updated' : transition
@@ -100,6 +106,7 @@ export class AtomArticle extends LitElement {
     const classListMap = {
       'is-empty': this.transitionState === 'create',
       'is-loaded': this.transitionState !== 'create',
+      'is-article': this.title !== '',
     }
     return html`
       <article
@@ -107,17 +114,16 @@ export class AtomArticle extends LitElement {
         class=${classMap(classListMap)}
       >
         <header>
-          ${this.articleTitle !== ''
-            ? this.articleTitle
-            : html`Article
-              ${this.articleId ? html`<em>${this.articleId}</em>` : nothing}`}
+          <h2>
+            ${this.articleTitle !== ''
+              ? this.articleTitle
+              : html`Article
+                ${this.articleId ? html`<em>${this.articleId}</em>` : nothing}`}
+          </h2>
         </header>
-        <slot>
-          <p>
-            Manage complexity by building large, complex components out of
-            smaller, simpler components that do one thing well.
-          </p>
-        </slot>
+        ${this.articleSummary !== ''
+          ? this.articleSummary
+          : html` <slot> Loading... </slot>`}
         <section>
           <span>Likes</span
           ><atom-click-counter

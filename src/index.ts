@@ -18,6 +18,9 @@ export class AppRoot extends LitElement {
       border: 1px solid blue;
       display: block;
     }
+    atom-article + atom-article {
+      margin-top: 20px;
+    }
   `
 
   @property({
@@ -33,7 +36,10 @@ export class AppRoot extends LitElement {
       ${repeat(
         this.articleIds,
         (articleId) =>
-          html`<atom-article data-article-id=${articleId}></atom-article>`,
+          html`<atom-article
+            class="aaaa"
+            data-article-id=${articleId}
+          ></atom-article>`,
       )}
       <app-footer></app-footer>
     `

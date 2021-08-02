@@ -12,10 +12,13 @@
         const origin = toOriginUrl(articleId)
         window
           .fetch(origin)
-          .then((response) => response.body)
+          .then((response) => response.json())
           .then((data) => {
-            const title = 'TODO'
-            const detail = { transition: 'update', articleId, title }
+            // This clearly doesn't scale!
+            let title = data?.title ?? 'TODO'
+            let summary = data?.opening_crawl ?? ''
+            console.log('Stream begin', { data })
+            const detail = { transition: 'update', articleId, title, summary }
             originalTarget.dispatchEvent(
               new CustomEvent('atom-article', { detail }),
             )
@@ -25,6 +28,6 @@
   </head>
 
   <body>
-    <app-root data-article-ids="people/1"></app-root>
+    <app-root data-article-ids="films/1,films/2,films/3"></app-root>
   </body>
 </html>
