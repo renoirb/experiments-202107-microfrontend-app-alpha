@@ -59,9 +59,19 @@ export class AtomArticle extends LitElement {
           </p>
         </slot>
         <p>
-          <span>Likes</span><atom-click-counter model="only-once-both" target-channel=${this.articleId}></atom-click-counter>
+          <span>Likes</span
+          ><atom-click-counter
+            model="only-once-both"
+            target-channel=${this.articleId}
+          ></atom-click-counter>
         </p>
       </article>
     `
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    [NAME]: AtomArticle
   }
 }

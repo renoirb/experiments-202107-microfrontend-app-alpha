@@ -85,3 +85,9 @@ export class AtomClickCounter extends LitElement {
     `
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    [NAME]: AtomClickCounter
+  }
+}
