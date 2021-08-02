@@ -47,7 +47,7 @@ export class AtomClickCounter extends LitElement {
     }
   }
 
-  private handleClick = (event: HTMLElementEventMap['click']) => {
+  private handleClick(event: HTMLElementEventMap['click']) {
     const { currentTarget = {} } = event
     const { dataset = {} } = currentTarget as HTMLElement
     const { intent = 'increment' } = dataset
@@ -60,23 +60,30 @@ export class AtomClickCounter extends LitElement {
       }
       dispatchEvent(this, detail)
     }
-    if (/^only-once/.test(this.model)) {
-      this.querySelectorAll('[data-intent]').forEach((e) => {
-        e.setAttribute('disabled', '')
-      })
+    if (
+      /^only-once/.test(this.model) &&
+      currentTarget &&
+      'parentElement' in currentTarget
+    ) {
+      currentTarget?.parentElement
+        ?.querySelectorAll('button[data-intent]')
+        .forEach((e) => {
+          e.setAttribute('disabled', '')
+        })
     }
   }
 
   public render() {
+    const model = this.model
     return html`
       <div>
-        ${/(both|down)$/.test(this.model)
+        ${/(both|down)$/.test(model)
           ? html`<button data-intent="decrement" @click=${this.handleClick}>
               -
             </button>`
           : nothing}
         ${this.count}
-        ${/(both|up)$/.test(this.model)
+        ${/(both|up)$/.test(model)
           ? html`<button data-intent="increment" @click=${this.handleClick}>
               +
             </button>`

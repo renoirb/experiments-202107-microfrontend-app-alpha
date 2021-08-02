@@ -7,15 +7,8 @@ const NAME = 'app-footer'
 export class AppFooter extends LitElement {
   static styles = css`
     :host {
-      bottom: 0;
-      font-family: Manrope, sans-serif;
-      left: 0;
-      position: absolute;
-      right: 0;
-    }
-    footer {
-      display: flex;
-      position: relative;
+      display: block;
+      border: 1px solid blue;
       justify-content: center;
     }
   `

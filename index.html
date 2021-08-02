@@ -3,9 +3,28 @@
     <title>Experiment 202107 a MicroFrontEnd App "Alpha"</title>
     <meta charset="UTF-8" />
     <script src="src/index.ts"></script>
+    <script>
+      document.addEventListener('atom-article:create', (event) => {
+        const { originalTarget } = event
+        // https://swapi.dev/documentation#planets
+        const toOriginUrl = (suffix) => `https://swapi.dev/api/${suffix}`
+        const articleId = originalTarget.dataset.articleId
+        const origin = toOriginUrl(articleId)
+        window
+          .fetch(origin)
+          .then((response) => response.body)
+          .then((data) => {
+            const title = 'TODO'
+            const detail = { transition: 'update', articleId, title }
+            originalTarget.dispatchEvent(
+              new CustomEvent('atom-article', { detail }),
+            )
+          })
+      })
+    </script>
   </head>
 
   <body>
-    <app-root></app-root>
+    <app-root data-article-ids="people/1"></app-root>
   </body>
 </html>

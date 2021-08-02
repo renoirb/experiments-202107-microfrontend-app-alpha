@@ -22,5 +22,6 @@ module.exports = {
     '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/no-parameter-properties': 'off',
     '@typescript-eslint/typedef': 'off',
+    'eslintno-unused-expressions': 'off',
   },
 }

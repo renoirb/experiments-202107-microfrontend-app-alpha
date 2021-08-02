@@ -7,8 +7,9 @@ const NAME = 'app-header'
 export class AppHeader extends LitElement {
   static styles = css`
     :host {
+      display: block;
+      border: 1px solid red;
       display: flex;
-      font-family: Manrope, sans-serif;
       justify-content: center;
     }
   `
