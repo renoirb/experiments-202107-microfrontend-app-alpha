@@ -1,3 +1,1 @@
-const base = require("@renoirb/conventions-use-prettier");
-
-module.exports = base;
+module.exports = require('@renoirb/conventions-use-prettier')

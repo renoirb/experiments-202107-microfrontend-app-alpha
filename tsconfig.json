@@ -5,22 +5,17 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": true,
     "strict": true,
     "module": "ES2020",
     "jsx": "preserve",
     "sourceMap": true,
     "allowJs": true,
-    "lib": [
-      "es6",
-      "dom"
-    ],
+    "lib": ["ES2019", "dom"],
     "rootDir": "src",
     "moduleResolution": "node"
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "src/__tests__"
-  ]
+  "include": ["src"],
+  "exclude": ["src/__tests__"]
 }
