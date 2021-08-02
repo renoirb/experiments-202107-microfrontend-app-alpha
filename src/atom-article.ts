@@ -1,6 +1,8 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators'
 
+import './atom-click-counter'
+
 export type AtomArticleStateTransition = 'create' | 'update'
 
 export interface AtomArticleState {
@@ -56,6 +58,9 @@ export class AtomArticle extends LitElement {
             smaller, simpler components that do one thing well.
           </p>
         </slot>
+        <p>
+          <span>Likes</span><atom-click-counter model="only-once-both" target-channel=${this.articleId}></atom-click-counter>
+        </p>
       </article>
     `
   }
